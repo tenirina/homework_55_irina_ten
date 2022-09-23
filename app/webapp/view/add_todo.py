@@ -16,7 +16,7 @@ def add_view(request):
     }
     print(todo_data)
     todo = ToDo.objects.create(**todo_data)
-    return redirect('todo', pk=todo.pk)
+    return redirect(reverse('todo', kwargs={'pk': todo.pk}))
 
 
 def detail_view(request, pk):
