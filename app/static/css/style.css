@@ -8,3 +8,6 @@ body {
     max-width: 900px;
     text-align: start;
 }
+.desc{
+    white-space: pre-wrap;
+}
