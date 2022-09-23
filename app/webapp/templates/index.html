@@ -13,8 +13,8 @@
         <a class="navbar-brand" href="#">My to-do list</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            <a class="nav-link" href="/add_todo">Add todo</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+            <a class="nav-link" href="{% url 'add_todo' %}">Add todo</a>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
                       {{to_do.completion_data}}
                     </div>
                     <div class="col-1">
-                        <a href="/todo/?pk={{to_do.pk}}">Details</a>
+                        <a href="{% url 'todo' to_do.pk %}">Details</a>
                     </div>
                   </div>
                 </div>
@@ -45,7 +45,7 @@
              <h2>Add to to-do list</h2>
            {% endif %}
             <br>
-           <a href="/add_todo">Add to-do</a>
+           <a href="{% url 'add_todo' %}">Add to-do</a>
         </div>
     </div>
 </body>
