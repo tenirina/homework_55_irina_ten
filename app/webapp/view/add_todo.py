@@ -21,5 +21,6 @@ def add_view(request):
 def detail_view(request):
     pk = request.GET.get('pk')
     todo = ToDo.objects.get(pk=pk)
-    print(todo.description)
+    status = todo.get_status_display()
+    todo.status = status
     return render(request, 'todo.html', context={'todo': todo})

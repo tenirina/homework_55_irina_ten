@@ -26,7 +26,7 @@
               {% for to_do in to_does%}
                 <div class="container">
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-5">
                       {{to_do.text}}
                     </div>
                     <div class="col-4">
@@ -34,6 +34,9 @@
                     </div>
                     <div class="col-2">
                       {{to_do.completion_data}}
+                    </div>
+                    <div class="col-1">
+                        <a href="/todo/?pk={{to_do.pk}}">Details</a>
                     </div>
                   </div>
                 </div>
