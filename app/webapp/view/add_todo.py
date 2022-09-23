@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from webapp.models import ToDo
@@ -16,12 +16,11 @@ def add_view(request):
     }
     print(todo_data)
     todo = ToDo.objects.create(**todo_data)
-    return redirect(reverse('todo', kwargs={'pk': todo.pk}))
+    return redirect('todo', pk=todo.pk)
 
 
-def detail_view(request):
-    pk = request.GET.get('pk')
-    todo = ToDo.objects.get(pk=pk)
+def detail_view(request, pk):
+    todo = get_object_or_404(ToDo, pk=pk)
     status = todo.get_status_display()
     todo.status = status
     return render(request, 'todo.html', context={'todo': todo})
