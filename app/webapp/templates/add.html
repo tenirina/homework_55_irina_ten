@@ -7,44 +7,6 @@
 {% block content %}
     <h2>Add to-do </h2>
         <form action="{% url 'add_todo' %}" method="POST">
-            {% csrf_token %}
-                 <div class="col-4">
-                    <div class="row g-2 align-items-start">
-                       <label for="to_do" class="form-label">To-do</label>
-                       <input name="text" type="text" class="form-control" id="to_do">
-                    </div>
-                 </div>
-            <br>
-                <div class="col-4">
-                    <div class="row g-2 align-items-start">
-                       <select class="form-select"  name="select">
-                           {% for el in choices %}
-                                <option value={{el.0}}>{{el.1}}</option>
-                           {% endfor %}
-                       </select>
-                    </div>
-                </div>
-            <br>
-                <div class="col-4">
-                    <div class="row g-2 align-items-start">
-                       <label for="description" class="form-label">Description</label>
-                       <textarea name="textarea" class="form-control" id="description">{{description}}</textarea>
-                    </div>
-                 </div>
-            <br>
-                <div class="col-4">
-                    <div class="row g-4 align-items-start">
-                        <div class="col-auto">
-                             <label for="date_made" class="form-label">Date of completion </label>
-                        </div>
-                        <div class="col-auto">
-                            <input name="completion_data" type="date" class="form-control" id="date_made" >
-                        </div>
-                    </div>
-                </div>
-            <br>
-                <div class="col-3">
-                    <button type="submit" class="btn btn-primary">Create to-do</button>
-                </div>
+            {% include 'partial/todo_form.html' with button_text="Add to-do" %}
         </form>
 {% endblock %}
