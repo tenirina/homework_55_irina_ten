@@ -1,6 +1,9 @@
 {% csrf_token %}
      <div class="col-4">
         <div class="row g-2 align-items-start">
+            {% if errors.text %}
+                <p class="errors">{{errors.text}}</p>
+            {% endif %}
            <label for="to_do" class="form-label">To-do</label>
            <input name="text" value="{{todo.text}}" type="text" class="form-control" id="to_do">
         </div>
@@ -8,7 +11,7 @@
 <br>
     <div class="col-4">
         <div class="row g-2 align-items-start">
-           <select class="form-select"  name="select">
+           <select class="form-select"  name="status">
                {% for el in choices %}
                     {% if todo.status == el.0 %}
                         <option value={{el.0}} selected>{{el.1}}</option>
@@ -23,7 +26,7 @@
     <div class="col-4">
         <div class="row g-2 align-items-start">
            <label for="description" class="form-label">Description</label>
-           <textarea name="textarea" class="form-control" id="description">{{todo.description}}</textarea>
+           <textarea name="description" class="form-control" id="description">{{todo.description}}</textarea>
         </div>
      </div>
 <br>

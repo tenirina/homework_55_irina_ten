@@ -11,3 +11,6 @@ body {
 .desc{
     white-space: pre-wrap;
 }
+.errors{
+    color: red
+}

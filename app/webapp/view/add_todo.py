@@ -1,20 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
+from webapp.forms import ToDoForm
 from webapp.models import ToDo
 
 
 def add_view(request):
+    form = ToDoForm()
     if request.method == "GET":
         choices = ToDo.CHOICES
-        return render(request, 'add.html', context={'choices': choices})
-    todo_data = {
-        'text': request.POST.get('text'),
-        'status': request.POST.get('select'),
-        'completion_data': request.POST.get('completion_data'),
-        'description': request.POST.get('textarea')
-    }
-    todo = ToDo.objects.create(**todo_data)
+        return render(request, 'add.html', context={'choices': choices, 'form': form})
+    form = ToDoForm(request.POST)
+    if not form.is_valid():
+        return render(request, 'add.html', context={'choices': ToDo.CHOICES, 'form': form})
+    todo = ToDo.objects.create(**form.cleaned_data)
     return redirect(reverse('todo', kwargs={'pk': todo.pk}))
 
 
@@ -26,15 +25,18 @@ def detail_view(request, pk):
 
 
 def edit_view(request, pk):
+    form = ToDoForm()
     todo = get_object_or_404(ToDo, pk=pk)
     if request.method == "POST":
-        todo.text = request.POST.get("text")
-        todo.status = request.POST.get("select")
-        todo.description = request.POST.get("textarea")
-        todo.completion_data = request.POST.get("completion_data")
-        todo.save()
-        return redirect('todo', pk=todo.pk)
-    return render(request, 'edit.html', context={'todo': todo, 'choices': ToDo.CHOICES})
+        form = ToDoForm(request.POST)
+        if form.is_valid():
+            todo.text = form.cleaned_data["text"]
+            todo.status = form.cleaned_data["status"]
+            todo.description = form.cleaned_data["description"]
+            todo.completion_data = form.cleaned_data["completion_data"]
+            todo.save()
+            return redirect('todo', pk=todo.pk)
+    return render(request, 'edit.html', context={'todo': todo, 'choices': ToDo.CHOICES, 'form': form})
 
 
 def delete_view(request, pk):
