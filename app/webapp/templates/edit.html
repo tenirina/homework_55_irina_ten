@@ -20,7 +20,7 @@
                        <select class="form-select"  name="select">
                            {% for el in choices %}
                                 {% if todo.status == el.0 %}
-                                    <option value={{el.0}} selection>{{el.1}}</option>
+                                    <option value={{el.0}} selected>{{el.1}}</option>
                                 {% else %}
                                     <option value={{el.0}}>{{el.1}}</option>
                                 {% endif %}

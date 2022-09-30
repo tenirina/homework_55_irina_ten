@@ -13,7 +13,7 @@
                     <div class="col-5">
                       {{to_do.text}}
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                       {{to_do.status}}
                     </div>
                     <div class="col-2">
@@ -24,6 +24,9 @@
                     </div>
                     <div class="col-1">
                         <a href="{% url 'edit_todo' to_do.pk %}">Edit</a>
+                    </div>
+                    <div class="col-1">
+                        <a href="{% url 'delete_todo' to_do.pk %}">Delete</a>
                     </div>
                   </div>
                 </div>
