@@ -14,7 +14,6 @@ def add_view(request):
         'completion_data': request.POST.get('completion_data'),
         'description': request.POST.get('textarea')
     }
-    print(todo_data)
     todo = ToDo.objects.create(**todo_data)
     return redirect(reverse('todo', kwargs={'pk': todo.pk}))
 
@@ -24,3 +23,17 @@ def detail_view(request, pk):
     status = todo.get_status_display()
     todo.status = status
     return render(request, 'todo.html', context={'todo': todo})
+
+
+def edit_view(request, pk):
+    todo = get_object_or_404(ToDo, pk=pk)
+    print("ddjdjdd")
+    if request.method == "POST":
+        print(f'fhfhhfhhf {request.POST}')
+        todo.text = request.POST.get("text")
+        todo.status = request.POST.get("select")
+        todo.description = request.POST.get("textarea")
+        todo.completion_data = request.POST.get("completion_data")
+        todo.save()
+        return redirect('todo', pk=todo.pk)
+    return render(request, 'edit.html', context={'todo': todo, 'choices': ToDo.CHOICES})
